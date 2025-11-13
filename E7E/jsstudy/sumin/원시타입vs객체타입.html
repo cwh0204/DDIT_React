@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<h1>원시타입 vs 객체타입</h1>
+<input type="text" id="sh" value="선회" />
+<script>
+  var money = 99999999999;
+
+  alert(money.toLocaleString());
+
+  /*   var check2 = "하품 큰 형수"; // string 은 원시타입
+  alert(check2.substring(0, 3)); //원시타입인데 메서드가?? */
+
+  //원시 타입에.을 붙이면 자동으로 wrapper 객체로 바뀜
+  //string => String, number => Number, bollean => Boolean
+
+  /*  var check = document.querySelector("#sh");
+  check.value = "바뀔까?";
+  */
+
+  // Primitive 타입 => number, string, boolean, [NaN과 null, undefined]등은 무시
+  // 속성도, 메소드도 없음
+  // Object 타입 => 원시타입이 아닌 전부가 객체 타입
+  // 왜 이 구분이 중요한가? 동작이 다름 (복사와 참조(reference => 그냥 별명이라 생각하면 됨))
+
+  var jc = "종창만세"; //??
+  /* alert(typeof jc); */
+  var jc2 = jc; //복사!!!, 따로 따로 동작
+  jc2 = "만세아님";
+  /* alert(jc); //?? */
+  var hsInfo = {
+    name: "형수",
+    age: 23,
+  };
+  var iu = hsInfo; // iu는 별도 객체가 아니고, hsinfo의 또다른 이름 곧 별명이다
+  // 객체만 이렇게 된 건 메모리가 비싸서 (자원을 효율적으로 사용하기 위해)
+
+  iu.name = "아이유";
+  /*   alert(hsInfo.name); */
+</script>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  // JSON => javaScript Object Notation
+  // {},[]도 json에 포함됨!
+
+  const test = {
+    name: "배트맨",
+    age: 100,
+    weapon: "손톱",
+  };
+
+  let attr = "age";
+
+  alert(test[attr]);
+
+  const name = "수민짱";
+
+  // key값 속성명은 기본적으로 문자열로 처리됨!
+  const aaa = {
+    name: "원효",
+    alias: "대사",
+  };
+
+  const bbb = {};
+  bbb.name = "원효";
+  bbb.alias = "대사";
+
+  const ccc = {
+    [name]: "원효", // 멋진 말로 배열식 접근법 또는 객체 조회법 , 동적 속성명 할당이 가능
+    ["alias"]: "대사",
+  };
+
+  console.log(ccc, bbb, ccc);
+</script>

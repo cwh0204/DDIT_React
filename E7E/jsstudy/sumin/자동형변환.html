@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  let num1 = "999";
+  let num2 = 1;
+  alert(num1 + num2);
+
+  // +, -, *, /, %
+  // + 만 프로그램상 문자열 더하기가 추가로 존재
+
+  // 자바 스크립트가 편한 이유중 하나, 자동 형변환, 핑요에 맞게 자동 형변환 됨
+  // 모든 문자열은 true, 단 ""는 false
+  // 모든 숫자는 true, 단 0 은 false
+  // 객체는 무조건 참 (내용이 없는 껍데기만 있어도)
+  let isClose = !0; //!0은 true
+  if (!"종창이 멋지다") {
+    //문자열인데? => boolean
+    alert("그렇다");
+  }
+</script>
