@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8" />
+<style>
+  #ball {
+    transform: skewX(45deg);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* 동그라미 */
+    background-color: pink;
+    background-image: url("https://cdn.jemin.com/news/photo/202505/806013_393812_2243.jpg");
+    background-size: cover;
+    left: 0px;
+    top: 0px;
+    position: absolute; /* 디폴트 static 자리배치는 브라우저 너에게 맡길게 */
+    /* relative 브러우저 너가 먼저 배치해 그 자리 기준으로 내가 추가 조정을 해볼게 */
+    /* absolute */
+  }
+  #wrapper {
+    width: 800px;
+    height: 700px;
+    border: 10px solid gold;
+    position: relative;
+  }
+</style>
+<body>
+  <h1 onclick="go()">즐건 TGIF</h1>
+  <div id="wrapper">
+    <div id="ball"></div>
+  </div>
+  <script>
+    // 과제 안되도 괜찮을 생각해 보자
+    // 누르면 빨라지는데, 빨라지 않게 하기!
+    const ball = document.querySelector("#ball");
+    var mvW = 10;
+    var mvH = 7;
+    var gakdo = 0;
+    go = () => {
+      //초기화 코드로 직접
+      if (!ball.style.left) {
+        ball.style.left = "20px";
+        ball.style.top = "20px";
+      }
+      gakdo += 10;
+      ball.style.transform = "rotate(" + gakdo + "deg)";
+
+      ball.style.left = parseInt(ball.style.left) + mvW + "px";
+      ball.style.top = parseInt(ball.style.top) + mvH + "px";
+      let ballLeft = parseInt(ball.style.left);
+      let ballTop = parseInt(ball.style.top);
+      if (ballLeft + 50 >= 500 || ballLeft <= 0) {
+        ball.style.transform = "skewY(45deg)";
+        mvW = -mvW; //방향 전환, 이런 코드는 뇌를 깨움!
+      }
+      if (ballTop + 50 >= 500 || ballTop <= 0) {
+        ball.style.transform = "skewX(45deg)";
+        mvH = -mvH;
+      }
+      setTimeout(go, 100);
+    };
+  </script>
+</body>

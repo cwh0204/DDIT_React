@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<div id="disp"></div>
+<script>
+  const disp = document.querySelector("#disp");
+
+  const members = [
+    { name: "수민", level: "code1" },
+    { name: "지원", level: "code2" },
+    { name: "형수", level: "code3" },
+    { name: "선회", level: "code4" },
+    { name: "승희", level: "code5" },
+  ];
+
+  const position = {
+    code1: "CEO",
+    code2: "전무",
+    code3: "상무",
+    code4: "대장",
+    code5: "쫄병",
+  };
+
+  let tblStr = `<table border=1 width=300>
+      <tr>
+          <th>순번</th>
+          <th>이름</th>
+          <th>직위</th>
+      </tr>
+  `;
+
+  for (let i = 0; i < members.length; i++) {
+    let member = members[i];
+
+    const memberPosition = position[member.level];
+    console.log(memberPosition);
+
+    tblStr += `
+          <tr>
+              <td>${i + 1}</td>
+              <td>${member.name}</td>
+              <td>${position[member.level]}</td>
+          </tr>
+      `;
+  }
+  tblStr += "</table>";
+
+  disp.innerHTML = tblStr;
+</script>

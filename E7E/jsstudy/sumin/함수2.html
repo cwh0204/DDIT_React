@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    //return에 제약사항이 없었듯, 매개변수에도 제약사항이 없음
+    //매개변수로 함수가 넘어가는 걸 callback 함수라 부름. (눈이 따라가게 연습 필요)
+    //대부분 익숙해지는데 몇일 걸림(전공자도 마찬가지)
+
+    //실제 대부분의 콜백함수는 배열 반복문을 대신 돌려줌
+
+    const testArr =["현규","종창","원효","상철"];
+
+    check = (pArr, pCb) => {
+        for(let i = 0; i<pArr.length; i++){ //배열 반복
+            pCb(pArr[i],i);                 //콜백함수 호출
+        }
+    }
+
+    check(testArr,(p1,p2)=>{
+        alert(p1+""+p2);
+    });
+
+    ck = (pArg) => {
+        pArg();
+    }
+
+    cb = () => {
+        alert("난 콜백함수로 될꺼야");
+        return;
+    }
+
+    ck(cc = () => {
+        alert("콜백함수");
+    });
+
+/*     ck("홍");
+    ck(999);
+    ck({name:"메롱"}); */
+</script>
+</html>

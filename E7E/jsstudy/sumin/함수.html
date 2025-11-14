@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  //표현식을 이용한 초기화 함수(그저 딱한번 실행)
+  //즉각 실행함수라 불리며 라이브러리 만들때 사용
+  //관례적 약속은 ()나 !를 쓰는 걸로 ,, 그 외의 방법은 미움받음
+  //일단 존재만 알아둠
+
+  //   ((pName) => {
+  //     alert("체킁킁" + pName);
+  //   })("확인용");
+
+  // 함수 모르면 그냥 끝, 중요한 단어
+  // 함수는 왜 만드는가? 중복 되는 코드가 나오기 마련!!
+  // DRY (Do not Repeat Yourself) => 반복하지 마라
+  // KISS (keep It Simple, Stupid) => 심플하게 만들어라
+  // 선언과 호출을 잘 구분하지 못함!(이건 연습이 안되었음을 의미)
+
+  //akert(jiwon()); //멋진 말로 hoisting이라 부름, 브라우저 업체들이 합의하에
+  //성능 향상을 위해, 실행전 코드에서 언언부만 위로 올려버림
+  //akert(sumin()); //공식 함수 선언법이 아니라서 위로 올려지지 않음
+
+  // 표현식( expressiong) ? sum = 1+3-2
+
+  // 선언
+  jiwon = (name) => {
+    return function () {
+      alert("나 함수야");
+    };
+    return name; // 이게 생략되어 있음, 항상 들어가야 하나까 왜? 함수를 끝내야 하니까
+    //alert("형수님 안녕"); //도달할 수 없는 코드 이미 끝났음
+  };
+
+  // return 되는 데이터 타입에 제약사항이 있는가?
+  // 호출된 자리에는 return 값이 남음!
+  //   alert(jiwon("지원"));
+  //   alert(jiwon("너 누구야"));
+  //   alert(jiwon("지원 만만세"));
+
+  /*   const sumin = () => {
+    alert("익명");
+  }; */
+
+  /*   sumin(); */
+  //   alert(jiwon()());
+</script>
