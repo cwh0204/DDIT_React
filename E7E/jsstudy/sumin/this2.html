@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  check = (pArg, pArg1, pArg2) => {
+    console.log("채용:", this, pArg, pArg1, pArg2); //this => window
+    //method 안에 사용된 this는 method를 소유한 객체를 가리킴
+  };
+
+  check(); // window.check();
+
+  const sleepySH = { name: "1번" };
+  sleepySH.merong = check; //?? 선언과 실행을 햇갈리면 안됨!, 요게 연습이 필요함!!
+
+  sleepySH.merong("함수 만만세"); // this가 바뀜 => 당연한 결과,
+
+  //이해는 되지만 코드 모양에 따라 this가 가리키는 대상이 바뀌는 건
+  //개발자에게 스트레스, 이렇게 써야 한다면 매번 this를 꼬박 꼬박 확인해야 하는데 이건 좋지않은 방식
+  //JS 언어 디자이너들이 이 상황에 공감해서, this를 제어 할 수 있는 3개의 메소드를 만들어줌
+  //개발자가 직접 this를 강제 세팅이 가능, call, apply, bind(!!)
+
+  sleepySH.merong.apply({ name: "원효대사" }, ["현규", "메롱", "테스트"]);
+  sleepySH.merong.call(["흠", "치", "뽕"], "승희", "회승", "원효");
+</script>

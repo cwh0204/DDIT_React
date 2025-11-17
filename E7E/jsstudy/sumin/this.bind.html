@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.23.0/sweetalert2.all.js"></script>
+<body>
+  <h1>왜 우린 그렇게 함수선언과 호출에 햇갈릴까?</h1>
+  <button id="jiwon" onclick="handleClick()">눌러봐</button>
+</body>
+<script>
+  //회사 가서도 좋은 매니저/직원 되려면 항상 우선순위를 잘 정해야 함!
+  //bind 를 멋지게 사용하는 예를 봅시다.
+  /*   document.write("<h1>해골과 함께 원효대사</h1>");
+  document.write("<h1>해골은 오뎅</h1>"); */
+
+  // call, apply, bind는 화살표 함수에 쓸 수 없음, 요건 prototype 배우고 나서!
+
+  /*   
+    swrt = (msg) => {
+    document.write(msg);
+  }; */
+  const swrt = document.write.bind(document); //참조(Reference)로 전혀 문법적으로 문제가 없음!
+  swrt("<h1>해골과 함께 원효대사</h1>");
+  swrt("<h1>해골은 오뎅</h1>");
+  //만약 이렇게 원래 제공되는 걸 덮어버릴떄는 사전협의와 공지가 있어야 함!
+  window.alert = Swal.fire.bind(Swal);
+  /*   alert("못생긴 그냥 alert는 가라"); */
+  //bind는 그렇게 많이 사용되지는 않지만, 알고 쓰면 사람이 달라보임!(어필이 많이 됨!)
+  const jiwon = document.querySelector("#jiwon");
+
+  handleChick = (pName) => {
+    alert(pName + "님이 눌렀어요" + this.alias);
+  };
+
+  const suminInfo = {
+    name: "수민",
+    alias: "무서븜",
+  };
+
+  jiwon.addEventListener("click", handleChick.bind(suminInfo, "메롱"));
+</script>

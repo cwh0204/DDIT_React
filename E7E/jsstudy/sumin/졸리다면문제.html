@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8" />
+<body>
+  <h1>당신의 보유 스킬을 선택하시오(최대 4개)</h1>
+  <a href="http://ddit.or.kr" onclick="check()">이동</a>
+  <form>
+    자바
+    <input
+      type="checkbox"
+      name="skills"
+      value="java"
+      onclick="cntCheck(this)"
+    />
+    <br />
+    오라클
+    <input
+      type="checkbox"
+      name="skills"
+      value="oracle"
+      onclick="cntCheck(this)"
+    />
+    <br />
+    CSS
+    <input
+      type="checkbox"
+      name="skills"
+      value="css"
+      onclick="cntCheck(this)"
+    /><br />
+    스크립트
+    <input type="checkbox" name="skills" value="js" onclick="cntCheck(this)" />
+    <br />
+    스프링
+    <input
+      type="checkbox"
+      name="skills"
+      value="spring"
+      onclick="cntCheck(this)"
+    />
+    <br />
+    도커
+    <input
+      type="checkbox"
+      name="skills"
+      value="doker"
+      onclick="cntCheck(this)"
+    />
+    <br />
+    <div>이거슨 div 태그</div>
+    <button type="submit">전송</button>
+  </form>
+  <script>
+    let count = 0;
+    function cntCheck(pThis) {
+      console.log("클릭", pThis.checked);
+      if (pThis.checked) {
+        count++;
+      } else {
+        count--;
+      }
+      if (count > 4) {
+        alert("체크안되!!");
+        pThis.checked = false;
+        count--;
+      }
+    }
+
+    // form은 여러개 가능하나, form안에 form을 넣으면 안됨!
+    const myForm = document.forms[0];
+    /*     alert(myForm.skills[0].value); */ // name이 같은게 있으면 자동으로 배열처리 해줌, 사용자 입력 태그만
+    // forms 가 제공되는 것처럼 , elements도 제공되는 데, form 태그안의 사용자 입력태그만 가져옴
+
+    for (let i = 0; i < document.forms.langth; i++) {
+      console.log(i);
+    }
+
+    function check() {
+      event.preventDefault(); //bultin-in 이벤트 막기!, 보통 ajax 사용시에 이용
+    }
+    /* 지금같은 상황에선 이 방법은 그리 좋은 방법이 아님
+    myForm.onsubmit = function () {
+      event.preventDefault(); //bultin-in 이벤트 막기!, 보통 ajax 사용시에 이용
+
+      const skills = myForm.skills;
+      //   console.log("체크", skills);
+      let count = 0;
+      for (let i = 0; i < skills.length; i++) {
+        let skill = skills[i];
+        if (skill.checked) {
+          count++;
+        }
+      }
+      if (count > 4) {
+        alert("그렇게 하지 말아요 4개만 하라고");
+      } else {
+        alert("잘했어요");
+      }
+    };
+    */
+  </script>
+</body>

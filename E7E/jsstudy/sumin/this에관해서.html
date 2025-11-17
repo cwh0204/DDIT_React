@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8" />
+
+<script>
+  //  this => ? 가리키는 게 무엇인가? ,애매하면 console.log를 찍으면 눈에 보임!
+  // 감추어진 진실, 브라우저 스크립트에서 전역함수를 선언하면
+  // 그것은 window. 객체의 메소드를 선언하는 것과 같다.
+  check = () => {
+    console.log("체크", this);
+  };
+
+  /*
+  오버라이딩(덮어쓰기), 애시당초 js 오버로딩 자체가 없음!
+  window.check = () => {
+    alert("난 누구");
+  };
+  */
+  console.log("체체크 : ", window);
+  /*   window.check(); */
+
+  //추론 능력 테스트
+  var myName = "지원"; //전역변수 선언, let,const는 동작이 다름, 나중에 생겨서 scope가 다름!
+  alert(window.myName); //window 객체의 속성을 선언하는 것과 같다
+</script>

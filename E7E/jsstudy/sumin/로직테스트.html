@@ -24,17 +24,33 @@
   }
 </style>
 <body>
-  <h1 onclick="go()">즐건 TGIF</h1>
+  <h1 id="merong" onclick="start()">즐건 TGIF</h1>
   <div id="wrapper">
     <div id="ball"></div>
   </div>
   <script>
+    const merong = document.querySelector("#merong");
+
+    //특히 S.I 부분에서는 이 패턴을 적용하면 대부분 해결되는 경우가 많음
+
     // 과제 안되도 괜찮을 생각해 보자
     // 누르면 빨라지는데, 빨라지 않게 하기!
     const ball = document.querySelector("#ball");
     var mvW = 10;
     var mvH = 7;
     var gakdo = 0;
+    let timer = null;
+
+    //좋은 해결책!! 모양이 중요, 멋진 말로 Proxy(대리인) 패턴
+    let isStart = false; // g현재 시작 안한 상태!
+    function start() {
+      if (!isStart) {
+        go();
+        isStart = true;
+        merong.innerHTML = "멈출래";
+      }
+    }
+
     go = () => {
       //초기화 코드로 직접
       if (!ball.style.left) {
@@ -56,7 +72,7 @@
         ball.style.transform = "skewX(45deg)";
         mvH = -mvH;
       }
-      setTimeout(go, 100);
+      timer = setTimeout(go, 100); //시계를 만드는 함수
     };
   </script>
 </body>
