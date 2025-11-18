@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  //sort 준비
+  const testArr = [2, 7, 4, 5, 9, 1, 3];
+  const testArr2 = ["수민", "지원", "선회", "현규", "종창", "김김"];
+  console.log("수민" > "지원");
+  // 원래 제공되는 sort메소드 사용법 // 이건 사용이 제한되어서 잘 쓰지않음!, 없어 보임 단순 sort()
+  testArr2.sort((a, b) => {
+    // console.log(a, b);
+    if (a > b) return 1;
+    return -1;
+  });
+  console.log("체크", testArr2);
+
+  // testArr 값 중에 최대값을 맨 처음 자리로 옮기려면
+  // 첫번째 자리
+  /*   for (let i = 1; i < testArr.length; i++) {
+    if (testArr[0] < testArr[i]) {
+      //자리를 바꿔야 함
+      let temp = testArr[0];
+      testArr[0] = testArr[i];
+      testArr[i] = temp;
+    }
+  } */
+
+  /*   //두번째 자리
+  for (let i = 2; i < testArr.length; i++) {
+    if (testArr[1] < testArr[i]) {
+      let temp = testArr[1];
+      testArr[1] = testArr[i];
+      testArr[i] = temp;
+    }
+  } */
+  //세번째 자리
+  /*   for (let i = 3; i < testArr.length; i++) {
+    if (testArr[2] < testArr[i]) {
+      let temp = testArr[2];
+      testArr[2] = testArr[i];
+      testArr[i] = temp;
+    }
+  } */
+
+  for (let i = 0; i < testArr.length; i++) {
+    for (let j = i + 1; j < testArr.length; j++) {
+      if (testArr[i] < testArr[j]) {
+        let temp = testArr[i];
+        testArr[i] = testArr[j];
+        testArr[j] = temp;
+      }
+    }
+  }
+  /*   for (let i = 0; i < testArr.length - 1; i++) {
+    for (let j = 0; j < testArr.length - 1 - i; j++) {
+      if (testArr[j] < testArr[j + 1]) {
+        let temp = testArr[j];
+        testArr[j] = testArr[j + 1];
+        testArr[j + 1] = temp;
+      }
+    }
+  } */
+  // testArr 값 중에 최대값을 찾으려면
+  /*   let maxVal = testArr[0]; // 첫번째 값이 최대값이라 가정
+  for (let i = 1; i < testArr.length; i++) {
+    if (maxVal < testArr[i]) {
+      maxVal = testArr[i];
+    }
+  } */
+
+  console.log("최대값은" + testArr);
+</script>

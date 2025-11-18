@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8" />
+<script>
+  //class란 키워드락 es6버전에서 들어감!
+  //순수 자바스크립트에선 function 키워드가 class키워드 역활도 같이함, 우린 이걸로
+  //class의 의미로 쓴다는 건, 호출을 new 함수명();
+  function Genius(name) {
+    this.name = name;
+    /* 개별 생성된 객체마다 똑같은 메소드를 각각 가짐
+    this.insa = function () {
+      return `안녕 난 ${this.name}이야`;
+    };
+    */
+    return this; //class의 의미로 쓸때 단순 return이 아닌 return this가 생략됨
+  }
+  //메소드를 공유해서 쓰려면 prototype이란 미리 만들어진 객체(공간)에 할당해야 함
+  //사실 속성도 prototype에 쓰면 공유되는데 (자바의 경우 static), js에선 의미 없음(그냥 전역변수)
+
+  Genius.prototype.insa = function () {
+    return `안녕 난 ${this.name}이야`;
+  };
+  const jiwon = new Genius("지원");
+  const sunhoi = new Genius("선회");
+  console.log("체크", jiwon);
+  console.log("체크", sunhoi);
+  alert(jiwon.insa()); // 호출 방법은 똑같음!, console.log로 확인가능
+</script>
