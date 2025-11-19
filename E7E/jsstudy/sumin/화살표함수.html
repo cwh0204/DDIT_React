@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  //화살표 함수(Arrow function), 자바나 c#하던 사람들은 이걸 람다라고도 부름(본인 맘대로)
+  //별거 아님, 그저 축약 기법, function 키워드가 엄청 많이 사용되니까 줄이고 싶었음
+  //특히 콜백함수에 function 키워드를 쓰면 function(function) 식으로 일부 사람들에겐
+  //불편하게 보일수 있음
+  function jiwon(name) {
+    return "안녕" + name;
+  }
+
+  //   const jiwon2 = (name) => {
+  //     return "안녕" + name;
+  //   };
+
+  const jiwon2 = (name) => "안녕" + name; // 이건 그냥 스타일이지만 익숙해질 필요가 있음
+
+  console.dir(jiwon); // function 키워드 함수
+  console.dir(jiwon2); // 화살표 함수, function 키워드로 만들어진 함수보다 가볍게 설계됨
+  // 일부만 가짐, call / apply / bind가 적용 안되고, 무조건 자기자신을 가진 상위객체를 this가 가리키는거 밖에 안됨
+  // 어쩔수없이 this를 컨트롤 하고 싶다면 화살표 함수가 아닌 function 키워드를 사용한 함수를 만들어야 함
+
+  //   alert(jiwon2("형수"));
+
+  //화살표 함수 사용시 꼭 기억해야 하는 것
+  //이걸 기억해서 사용하지 않으면 잘난체 하는 사람들이 무시함
+  //매개변수가 1개 일때 () 생략가능(자동화 툴 마다 약간 다름)
+  //{} 블록 안에 return 문 밖에 없을때 {}과 return 생략가능
+</script>

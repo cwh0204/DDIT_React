@@ -43,3 +43,15 @@ call / apply 사용법이 매개변수 넘기는 법 만 다름. apply로 무조
 bind  사용법이 call 하고 똑같은데, 내부적으로 새함수를 return해줌
 
 => this를 제어하고 싶을 때는 화살표 함수를 사용하지는 않는다.(제약사항)
+
+function 키워드 => 일반 함수  return; (자바로 치면 void)
+                class의미(생성자함수 공장) return this; 앞에 new를 붙여서 사용
+                메소드 안의 this => 자신(메소드)를 소유한 객체
+                이 this가 가리키는 값을 바꾸고 싶을 때,  call/apply/bind를 사용
+
+prototype => 메소드 공유 (js는 명시적으로 기술해줘야 공유가 이루어짐)
+
+선언적 프로그래밍
+
+배열 -> forEach(자기자신 -> 메소드 체이닝) / map(새 배열 리턴) /filter(새 배열 리턴) / sort(?) 
+        리엑트(프론트 프레임워크)에서 아주 많이 사용됨!

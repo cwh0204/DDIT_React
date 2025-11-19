@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  const testArr = [
+    { name: "수민", age: 24 },
+    { name: "지원", age: 27 },
+    { name: "형수", age: 34 },
+    { name: "승희", age: 30 },
+    { name: "상철", age: 27 },
+    { name: "원효", age: 52 },
+  ];
+  /*   alert({ name: "aa" } > { name: "pp" }); */
+  testArr.sort((a, b) => {
+    if (a.age > b.age) return 1;
+    return -1;
+  });
+  console.log("체크", testArr);
+</script>

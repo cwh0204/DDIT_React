@@ -47,8 +47,30 @@
     return newArr; // 새 배열을 되돌려 줌
   };
 
+  JwArray.prototype.sort = function (cb) {
+    for (let i = 0; i < this.length; i++) {
+      for (let j = i + 1; j < this.length; j++) {
+        if (cb(this[i], this[j]) > 0) {
+          // 콜백 return 양수에 바꿀건지, 음수에 바꿀건지는 본인선택
+          // 자리를 바꿔야 함, 일반 적인 스위치 로직
+          let temp = this[i];
+          this[i] = this[j];
+          this[j] = temp;
+        }
+      }
+    }
+    return this; // this가 헷갈리지 않는자! Good!
+  };
+
   const testArr = new JwArray();
+  const testArr2 = new JwArray();
   testArr.push("형수").push("승희").push("현식");
+  testArr2.push({ name: "형수" }).push({ name: "승희" }).push({ name: "수민" });
+  testArr.sort((a, b) => (a > b ? 1 : -1));
+  testArr2.sort((a, b) => (a.name > b.name ? 1 : -1));
+
+  console.log("동작확인 : ", testArr);
+  console.log("동작확인 : ", testArr2);
   /*   testArr.forEach(function (elem, idx) {
     console.log("확인" + elem + " " + idx);
   }); */
@@ -63,5 +85,5 @@
     .map(function (elem, idx) {
       return `<h1>멋지당 ${elem}</h1>`;
     });
-  console.log("체크", mapedArr); //눈으로 확인하기!
+  //console.log("체크", mapedArr); //눈으로 확인하기!
 </script>

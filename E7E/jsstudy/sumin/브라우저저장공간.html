@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  //브라우저에도 저장 공간이 있음, 잘 활용하면 아주 유용
+  //그 중에 localStorage, sessionStorage 란게 있는데
+  //사용법은 완전 똑같고, 하나는 영구저장(지우기 전에는 안지워짐)
+  //하나는 사이트가 접속되어 있을때만 저장되었다가, 빠져 나가면 자동 삭제됨(마치, session같음)
+  //특히 localStorage가 쿠키 대용으로 많이 사용됨!
+  //크롬 기준 사이트당 5M 정도를 저장할 수 있는데, 쿠키는 몇 k밖에 저장이 안됨
+
+  localStorage.setItem("너의 이름은", "유상철이아니고최상철");
+  localStorage.setItem("인사는", "메롱");
+  localStorage.지원 = "나는야 지원";
+
+  console.log(localStorage.getItem("인사는"));
+  console.log(localStorage.length);
+  console.log(localStorage.key[0]);
+  localStorage.removeItem("너의 이름은");
+</script>

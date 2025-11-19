@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Sort 활용 테스트</h1>
+    <button onclick="move()">눌러봐</button>
+    <table border="1" width="400">
+        <thead>
+        <tr>
+            <th>순번</th>
+            <th onclick="nameSort()">이름</th>
+            <th onclick="ageSort()">나이</th>
+            <th>별명</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>종창</td>
+            <td>33</td>
+            <td>많네</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>현규</td>
+            <td>29</td>
+            <td>젊음</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>선회</td>
+            <td>21</td>
+            <td>돌아가</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>수민</td>
+            <td>24</td>
+            <td>가중치</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>지원</td>
+            <td>27</td>
+            <td>굳</td>
+        </tr>
+        </tbody>
+  </body>
+  <script>
+    
+    const tbody = document.querySelector("tbody");
+/*     //스크립트 배열로 바꾸기, 이걸 자주 해야 하는데
+    let jsTrs = [];
+    for(let i =0; i< trs.length; i++){
+        jsTrs.push(trs[i]);
+    } */
+
+    /* console.log("체크",trs); //모습은 배열형태지만 실제 js 배열 객체는 아님, 이런 걸 유사 배열! */
+
+    let togleName = false;
+
+    function nameSort() {
+        const trs = Array.from(document.querySelectorAll("tbody > tr"));
+
+        trs.sort((a,b)=>{
+            const aName = a.children[1].innerHTML;
+            const bName = b.children[1].innerHTML;
+            if(togleName){
+                if(aName > bName) return 1;
+                return -1;
+            }else{
+                if(aName < bName) return 1;
+                return -1;
+            }
+        }).forEach(tr => {
+            tbody.appendChild(tr);
+        });
+/*         alert("name을 기준으로 정렬해봅시다"); */
+        // 정렬된 대로 tbody에 넣기 요즘은 이런 직접적인 for문 사용을 지양을 권장함! brack를 사용할때만 사용!!
+        // for(let i = 0; i < trs.length; i++){
+        //     tbody.appendChild(trs[i]);
+        // }
+        togleName = !togleName;
+        //작성해 봅시다.
+    }
+
+    function ageSort(){
+        const trs = Array.from(document.querySelectorAll("tbody > tr"));
+
+        console.log(trs[0].children[2].innerHTML);
+
+        trs.sort((a,b)=>{
+            
+            const aAge = a.children[2].innerHTML;
+            const bAge = b.children[2].innerHTML;
+            if(aAge > bAge) return 1; return -1;
+        });
+
+        for(let i = 0; i< trs.length; i++){
+            tbody.appendChild(trs[i]);
+        }
+    }
+
+    function move() {
+        const trs = Array.from(document.querySelectorAll("tbody > tr"));
+        
+        tbody.appendChild(trs[0]); //append를 이동시킬 때도 사용
+        
+    }
+  </script>
+</html>

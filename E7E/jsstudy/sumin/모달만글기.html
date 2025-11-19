@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #suminModal {
+        /* 모달은 거의 css로 만들어짐 */
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 99999999999999999999;
+        background-color: rgba(12, 0, 20, 0.8);
+        display: none;
+      }
+      #suCont {
+        margin: 30px auto;
+        width: 50%;
+        height: 50%;
+        background-color: aquamarine;
+        text-align: center;
+      }
+      #suminModal.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!--모달을 가져다 쓰는 경우가 많은데, 직접 만들어서 자기만의 모달을 활용하면
+    다른 라이브러리와의 충돌 대부분 z-index 값 차이로 발생하는 문제를 잘 해결할 수 있음
+-->
+    <div id="suminModal" class="">
+      <div id="suCont">
+        <h1>이거슨 모달 안의 내용</h1>
+        <button onclick="mclose()">X</button>
+      </div>
+    </div>
+    <div id="wrapper">
+      <button onclick="mopen()">맨날 눌러봐</button>
+    </div>
+    <script>
+      const suminModal = document.querySelector("#suminModal");
+      let isToggle = false;
+      function mopen() {
+        if (!isToggle) {
+          // 닫힌 상태 (false) -> 열기 (block)
+          suminModal.style.display = "block";
+          isToggle = true; // 상태를 열림 (true)으로 변경
+        } else {
+          // 열린 상태 (true) -> 닫기 (none)
+          suminModal.style.display = "none";
+          isToggle = false; // 상태를 닫힘 (false)으로 변경
+        }
+      }
+
+      function mclose() {
+        suminModal.style.display = "none";
+        isToggle = false;
+      }
+    </script>
+  </body>
+</html>
