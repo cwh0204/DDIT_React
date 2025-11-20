@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script src="./jsp.js"></script>
+<script>
+  //동작 테스트
+  /*
+    인코딩 함수 escape encodeURI encodeURIComponent
+    디코딩 함수 unescape decodeURI decodeURIComponent
+  */
+  const title = request.getParameter("title");
+  const writer = request.getParameter("writer");
+  const cont = request.getParameter("cont");
+  const cat = request.getParameterValues("cat"); // 요건 여러개 선택가능
+
+  // 위의 데이터 들을 묶어서 글 묶음으로 만들어야 함
+  const gul = {
+    title,
+    writer,
+    cat,
+    cont,
+  };
+
+  const tableKey = "sumin";
+  if (!localStorage.getItem(tableKey)) {
+    //최조 저장
+  } else {
+  } //추가 저장
+  // localStorage에 저장을 해야 하는데.. , 최초 저장?, 추가 저장이냐?
+</script>

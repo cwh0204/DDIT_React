@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  // 안타깝지만 localStorage에 단순 원시타입 value만 저장해서 사용하는 경우는 거의 없음
+  // localStorage 제약사항이 있는데, 객체 그대로 저장안 지원하지 않음, 문자열만 저장가능!
+  // 재미난 건 localStorage에 저장하는 방식이 보이는 모습은 정확히 유명한 MongoDB와
+  // 정확히 일치해서 localStorage를 잘 쓰면 MongoDB를 잘 쓴다 이야기해도 큰 문제는 없음
+
+  // 바깥쪽을 " 로 처리하면 JSON.parse가 에러 발생! = '로 해야함!
+  let testStr = '{ "name" : "선회", "age" : 30 }'; // 문자열!
+
+  JSON.parse(testStr);
+
+  console.log("체크", JSON.parse(testStr).name);
+  // JSON.parse(testStr); //역직렬화 js객체화 JSON 유틸의 문제!
+
+  let suminInfo = {
+    name: "수민",
+    mode: "오늘 굳!",
+  };
+
+  /*   alert(suminInfo.toString()); */
+  //쓰기 (직렬화 필요)
+  localStorage.setItem("sumin", JSON.stringify(suminInfo));
+
+  // 읽기(역칙렬화)
+  let rvalue = JSON.parse(localStorage.getItem("sumin"));
+  console.log(rvalue.name + rvalue.mode);
+</script>

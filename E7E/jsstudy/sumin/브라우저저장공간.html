@@ -8,11 +8,11 @@
   //특히 localStorage가 쿠키 대용으로 많이 사용됨!
   //크롬 기준 사이트당 5M 정도를 저장할 수 있는데, 쿠키는 몇 k밖에 저장이 안됨
 
-  localStorage.setItem("너의 이름은", "유상철이아니고최상철");
+  localStorage.setItem("너의 이름은", "유상철이아니고최상철"); //쓰기
   localStorage.setItem("인사는", "메롱");
   localStorage.지원 = "나는야 지원";
 
-  console.log(localStorage.getItem("인사는"));
+  console.log(localStorage.getItem("인사는")); //읽기
   console.log(localStorage.length);
   console.log(localStorage.key[0]);
   localStorage.removeItem("너의 이름은");

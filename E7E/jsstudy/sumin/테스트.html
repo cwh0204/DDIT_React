@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+id<input type="text" id="sId" value="" placeholder="id값"/></br>
+이름<input type="text" id="sNmae" value="" placeholder="이름"/></br>
+나이<input type="number" id="sAge" value="" min="20" max="50" /></br>
+기분<input type="text" id="sGibun" value="" placeholder="오늘 기분은?"/></br>
+<button onclick="modify()">수정</button>
+
+
+<script>
+/*     let testData ={
+        name: "수민",
+        age: 24,
+        gibun: "Good!"
+    } */
+
+    let testData = [];
+    for(let i=1; i<= 10; i++){
+        let saram = {
+            sid: i,
+            name:"사람 " + i,
+            age : i == 9 ? [50, 60] : i * 5,
+            gibun: "기분" + i,
+        }
+        testData.push(saram);
+    }
+    localStorage.setItem("sumin", JSON.stringify(testData));
+
+    const modify = () => {
+        //작성해 봅니다. age만 바뀌도록...
+        //먼저 읽어 들어야 함
+/*         const suminAge = document.querySelector("#sumin");
+        const old = JSON.parse(localStorage.getItem("sumin")).age; //비유하면 excel로 excel파일을 읽어들임
+        suminAge.value = old; */
+        const sId = document.querySelector("#sId");
+        const sNmae = document.querySelector("#sNmae");
+        const sAge = document.querySelector("#sAge");
+        const sGibun = document.querySelector("#sGibun");
+
+        const rObj2 = JSON.parse(localStorage.getItem("sumin"));
+
+        const newValues = rObj2.map((oneSaram) => {
+            if(oneSaram.sid == sId.value){
+                oneSaram.name = sNmae.value;
+                oneSaram.gibun = sGibun.value;
+                oneSaram.age = sAge.value;
+            }
+            return oneSaram; //원래 꺼 그대로...
+        });
+/*         for(let i = 0; i< rObj2.length; i++){
+            let oneSaram = rObj2[i];
+            if(oneSaram.sid == sId.value){
+                oneSaram.name = sNmae.value;
+                oneSaram.gibun = sGibun.value;
+                oneSaram.age = sAge.value;
+            }
+        } */
+        localStorage.setItem("sumin", JSON.stringify(newValues));
+    }
+</script>
