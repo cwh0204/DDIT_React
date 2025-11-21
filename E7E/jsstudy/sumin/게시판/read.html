@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./jsp.js"></script>
+  </head>
+  <body>
+    <h1>게시판!!</h1>
+        <form action="modify_action.html" metgod="get">
+            <input type="hidden" name="gid" value="">
+            제목 <input type="text" name="title" value="" autofocus required></br>
+            작자 <input type="text" name="writer" value="" readonly></br>
+            분류</br>
+            엔터<input type="checkbox" name="cat" value="ent">
+            도서<input type="checkbox" wonhyo name="cat" value="book">
+            미용<input type="checkbox" name="cat" value="beauty">
+            IT<input type="checkbox" name="cat" value="it" checked>
+            사람<input type="checkbox" name="cat" value="people"></br>
+            내용 <textarea name="cont" rows="5" cols="35" value=""></textarea></br>
+            <button id="mod">수정</button>
+            <button id="del">삭제</button>
+        </form>
+    </body>
+    <script>
+        
+/*         document.querySelector("[wonhyo]"); */
+
+/*         console.log("찾았당", document.querySelector("[wonhyo]")); 알아둡시다*/ 
+        const del = document.querySelector("#del");
+        const mod = document.querySelector("#mod");
+        const jiForm = document.forms[0];
+
+        jiForm.onsubmit = function() {
+
+
+            event.preventDefault();       // 전송이 안됨
+            console.log(event.submitter); // 눈으로 확인! submitter을 누가 발생기켰는지 알수 있음
+            
+            if(event.submitter == del){
+                jiForm.action = "del_action.html";
+            }
+            jiForm.submit(); // 강제 전송, 안타깝지만 required등 유효성 체크가 먹지 않음, 그냥 전송해버림
+            //jiForm.requestSubmit(); // 한번더 확인
+        }
+
+        const tableKey = "sumin";
+        const gid = request.getParameter("gid");
+        const gulArr = JSON.parse(localStorage.getItem(tableKey));
+
+        console.log(gulArr);
+        const searchGul = gulArr.filter((gul) => gul.gid == gid)[0];
+         
+        // 찾은 데이터를 화면에 뿌려야함
+        console.log("체크", searchGul.cat);
+        //cat(배열에 들어있는 값의 checkbox만 체크가 되도록 해봅니다)
+
+        jiForm.title.value = searchGul.title;
+        jiForm.writer.value = searchGul.writer;
+        jiForm.cont.value = searchGul.cont;
+        jiForm.gid.value = searchGul.gid;
+
+/*         document.querySelector("checkbox[value='it']").checked = true; */
+        searchGul.cat.forEach(element => {
+            document.querySelector(`input[type=checkbox][value='${element}']`).checked = true;
+        });
+        for(let i = 0; i < searchGul.cat.length; i++){
+                console.log(searchGul.cat[i]);
+                document.querySelector(`input[value='${searchGul.cat[i]}']`).checked = true;
+        }
+    </script>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script src="./jsp.js"></script>
+<script>
+  const gid = request.getParameter("gid");
+  const title = request.getParameter("title");
+  const cont = request.getParameter("cont");
+  const cat = request.getParameterValues("cat"); // 요건 여러개 선택가능
+  const tableKey = "sumin";
+  const gulArr = JSON.parse(localStorage.getItem(tableKey));
+  for (let i = 0; i < gulArr.length; i++) {
+    let gul = gulArr[i];
+    if (gul.gid == gid) {
+      //찾았다면
+      gul.title = title;
+      gul.cat = cat;
+      gul.cont = cont;
+      break; // 이게 없으면 상황에 따라서 엄청 뺑뺑
+    }
+  }
+
+  localStorage.setItem(tableKey, JSON.stringify(gulArr));
+  location.href = "list.html";
+</script>

@@ -19,11 +19,22 @@
     cat,
     cont,
   };
-
   const tableKey = "sumin";
+  let savaDeta = null;
   if (!localStorage.getItem(tableKey)) {
     //최조 저장
+    gul.gid = 1; //고유 id 값(db의 pk 역활 검색 효율 상승)
+    savaDeta = [];
+    savaDeta.push(gul);
   } else {
+    savaDeta = JSON.parse(localStorage.getItem(tableKey)); //이미 있는 배열 읽어오기;
+    gul.id = savaDeta[savaDeta.length - 1].gid + 1;
+    savaDeta.push(gul);
   } //추가 저장
+
+  localStorage.setItem(tableKey, JSON.stringify(savaDeta));
   // localStorage에 저장을 해야 하는데.. , 최초 저장?, 추가 저장이냐?
+
+  location.href = "list.html"; //리스트로 이동
+  //location.replace("list.html"); //리스트로 이동, cache 사용 안함
 </script>

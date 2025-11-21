@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>이게 게시판?</h1>
+    <div id="disp"></div>
+    <script>
+      const tableKey = "sumin";
+      const disp = document.querySelector("#disp");
+      // css로도 가능!, 괘니 자바스크립트로
+      function fover(pTr) {
+        pTr.style.backgroundColor = "black";
+        pTr.style.color = "orange";
+      }
+      function fout(pTr) {
+        pTr.style.backgroundColor = "white";
+        pTr.style.color = "black";
+      }
+
+      const gulArr = JSON.parse(localStorage.getItem(tableKey));
+
+      // 페이지 나누기 => 단순 산수 => 필요한 걸 하나씩 생각해 보면 거의 그냥 다됨
+      let curPage = 2; //디폴트 값
+      let totalGul = gulArr.length;
+      const gulPerPage = 10;
+      let totalPage = Math.ceil(totalGul / gulPerPage); // ?? 10.1~10.9 => 11페이지
+      let gulStartNum = (curPage - 1) * gulPerPage;
+      let gulEndNum = gulStartNum + gulPerPage;
+
+      // 먼저 데이터(gul 배열) 가져오기
+
+      let tblStr = `
+        <table border=1 width=400>
+            <thead>
+            <tr>
+                <th>순번</th>
+                <th>제목</th>
+                <th>지은이</th>
+                <th>분류</th>
+            </tr>
+            </thead>
+            <tbody>
+      `;
+
+      for (let i = gulStartNum; i < gulEndNum.length; i++) {
+        const gul = gulArr[i];
+        tblStr += `
+            <tr onmouseover='fover(this)' onmouseout='fout(this)'>
+                <td>${i + 1}</td>
+                <td><a href="read.html?gid=${gul.gid}">${gul.title}</a></td>
+                <td>${gul.writer}</td>
+                <td>${gul.cat}</td>
+            </tr>
+        `;
+      }
+
+      tblStr += `</tbody></table><br><br>
+      <a href="write.html">글쓸령</a>
+      `;
+      disp.innerHTML = tblStr; // 화면에 보이기
+    </script>
+  </body>
+</html>

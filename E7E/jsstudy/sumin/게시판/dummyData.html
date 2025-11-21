@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  // 가짜 데이터 쓰기
+
+  let dummy = []; // 빈 배열
+  Array.from({ length: 108 }).forEach((_, idx) => {
+    const gul = {
+      gid: idx + 1,
+      title: "수민 짱" + (idx + 1),
+      cont: "내용" + idx,
+      writer: "지원" + idx,
+      cat: ["ent", "people"],
+    };
+    dummy.push(gul);
+  });
+  localStorage.setItem("sumin", JSON.stringify(dummy));
+</script>
