@@ -19,8 +19,8 @@
             IT<input type="checkbox" name="cat" value="it" checked>
             사람<input type="checkbox" name="cat" value="people"></br>
             내용 <textarea name="cont" rows="5" cols="35" value=""></textarea></br>
-            <button id="mod">수정</button>
-            <button id="del">삭제</button>
+            <button type="button" id="mod" onclick="fSubmit(this.id)">수정</button>
+            <button type="button" id="del" onclick="fSubmit(this.id)">삭제</button>
         </form>
     </body>
     <script>
@@ -32,7 +32,14 @@
         const mod = document.querySelector("#mod");
         const jiForm = document.forms[0];
 
-        jiForm.onsubmit = function() {
+        //일반 버튼을 submit 버튼 처럼 사용하기! jiForm.submit()을 바로 쓰면 유효성 체크 동작 안함
+        function fSubmit(bid){
+            if(bid == "del"){
+                jiForm.action = "del_action.html";
+            }
+            jiForm.requestSubmit();// 전송 요청, 이걸 넣으면 일반 버튼이 submit 버튼처럼 동작
+        }
+/*         jiForm.onsubmit = function() {
 
 
             event.preventDefault();       // 전송이 안됨
@@ -43,7 +50,7 @@
             }
             jiForm.submit(); // 강제 전송, 안타깝지만 required등 유효성 체크가 먹지 않음, 그냥 전송해버림
             //jiForm.requestSubmit(); // 한번더 확인
-        }
+        } */
 
         const tableKey = "sumin";
         const gid = request.getParameter("gid");

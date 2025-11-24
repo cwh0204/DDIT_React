@@ -4,10 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .page {
+        display: inline-block;
+        width: 30px;
+      }
+      .active {
+        color: red;
+        font-size: 5em; /* 5배 */
+      }
+    </style>
   </head>
   <body>
     <h1>이게 게시판?</h1>
     <div id="disp"></div>
+    <script src="jsp.js"></script>
     <script>
       const tableKey = "sumin";
       const disp = document.querySelector("#disp");
@@ -21,18 +32,23 @@
         pTr.style.color = "black";
       }
 
+      // 먼저 데이터(gul 배열) 가져오기
       const gulArr = JSON.parse(localStorage.getItem(tableKey));
+      /* 페이지 나누기 => 단순 산수 => 필요한 걸 하나씩 생각해 보면 거의 그냥 다됨 */
+      let curPage = 1; // 디폴트 값
 
-      // 페이지 나누기 => 단순 산수 => 필요한 걸 하나씩 생각해 보면 거의 그냥 다됨
-      let curPage = 2; //디폴트 값
+      //만약 주소 표시줄에 ?page=넘버 형식으로 넘어왔다면
+      if (request.getParameter("page")) {
+        curPage = request.getParameter("page");
+      }
+
       let totalGul = gulArr.length;
       const gulPerPage = 10;
       let totalPage = Math.ceil(totalGul / gulPerPage); // ?? 10.1~10.9 => 11페이지
       let gulStartNum = (curPage - 1) * gulPerPage;
-      let gulEndNum = gulStartNum + gulPerPage;
-
-      // 먼저 데이터(gul 배열) 가져오기
-
+      let gulEndNum = gulStartNum + gulPerPage; // < , <=
+      // 마지막 페이지는 무조건 꼭 차 있지 않음, 곧 위의 계산이 맞지 않는 경우가 생김
+      if (gulEndNum > totalGul) gulEndNum = totalGul;
       let tblStr = `
         <table border=1 width=400>
             <thead>
@@ -46,7 +62,7 @@
             <tbody>
       `;
 
-      for (let i = gulStartNum; i < gulEndNum.length; i++) {
+      for (let i = gulStartNum; i < gulEndNum; i++) {
         const gul = gulArr[i];
         tblStr += `
             <tr onmouseover='fover(this)' onmouseout='fout(this)'>
@@ -59,8 +75,18 @@
       }
 
       tblStr += `</tbody></table><br><br>
-      <a href="write.html">글쓸령</a>
+      <a href="write.html">글쓸령</a><br><br>
       `;
+
+      //사용자 페이지 클릭 가능하도록 처리
+      //사용자가 현재 몇 페이지에 있는지를 알려주는 처리가 필요
+      for (let i = 1; i <= totalPage; i++) {
+        if (i == curPage) {
+          tblStr += `<a class="active" href="list.html?page=${i}">${i}</a>&nbsp;&nbsp;&nbsp;`;
+        } else {
+          tblStr += `<a class="" href="list.html?page=${i}">${i}</a>&nbsp;&nbsp;&nbsp;`;
+        }
+      }
       disp.innerHTML = tblStr; // 화면에 보이기
     </script>
   </body>

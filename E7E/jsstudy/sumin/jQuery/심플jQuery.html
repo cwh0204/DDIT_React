@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<body>
+  <div class="merong">수민</div>
+  <div class="merong" id="jiwon">지원</div>
+  <div class="merong">형수</div>
+  <div class="merong">승희</div>
+  <!-- 원래 id는 한 문서 안에서 같은 값을 주지 말라는 권고 사항이 있는데 요즘은 필요에 의해서 무시하고 사용하기도 함! -->
+  <input type="text" class="text" id="same" value="현식" /><br />
+  <input type="text" class="text" id="same" value="상철" /><br />
+  <input type="text" class="text" id="same" value="원효" /><br />
+  <input type="text" class="text" id="same" value="종창" /><br />
+  <script>
+    // 유지 보수 쪽으로 가는 사람은 jQuery가 대부분!
+    // callback이 세상에 널리 쓰이도록 남김, 라이브러리를 만들 수있는 개발자로 거듭날것임!
+
+    // new 를 없애기로 마음 먹음, 웹 디자이너들에게 너무 어렵다고 판단
+    // jQuery plugin, 사용자들이 본인 필요한 메소드를 마음대로 추가해서 사용하게 해주고 싶었음
+    // 핵신코드 영역 표시 및 보호, 초기화등을 위해 즉각 실행함수로 성벽 치기
+    // var $; 눈에 거슬림 window.$
+    // 처음에는 그냥 눈만 따라 갈 수 있으면, 신기하게 그 뒤에 확장이 가능해짐!
+    (function () {
+      const $ = function (cssSel) {
+        return new myDom(cssSel);
+      };
+
+      // function 을 class의 의미로
+      function myDom(cssSel) {
+        const elems = document.querySelectorAll(cssSel);
+        this.length = elems.length; // length 속성 값 옮겨 닮기
+        // 여기서 생성되는 객체에 단순 옮겨닮기
+        for (let i = 0; i < this.length; i++) {
+          this[i] = elems[i];
+        }
+        return this;
+      }
+      // myDom으로 생성된 객체가 메소드를 공유하려면
+      // myDom.prototype.메소드명 = function(){}
+
+      window.$ = $; //전역변수 $가 지역변수 $를 참조
+      $.fn = myDom.prototype; //myDom.prototype 을 즉각실행함수 밖에서는 $.fn 으로 부를 수 있음
+    })();
+
+    //jQuery plugin 개발이라고 부름! , 오버로딩 없음!
+    $.fn.html = function (pArg) {
+      // 매개변수 값이 없을 때, 읽기 동작으로 하자
+      if (!pArg) {
+        return this[0].innerHTML;
+      }
+      //매개변수 타입이 string 일때, 전체 쓰기
+      if (typeof pArg == "string") {
+        for (let i = 0; i < this.length; i++) {
+          this[i].innerHTML = pArg;
+        }
+        return this; //메소드 체이닝!
+      }
+      //매개변수 타입이 function일때 곧 callback일때, 부분 조작
+      if (typeof pArg == "function") {
+        for (let i = 0; i < this.length; i++) {
+          this[i].innerHTML = pArg.call(this[i], i, this[i].innerHTML);
+        }
+        return this;
+      }
+    };
+
+    //사용자 입력 태그 value만 전용으로 다루는 메소드 val
+    $.fn.val = function (pArg) {
+      // 매개변수 값이 없을 때, 읽기 동작으로 하자
+      if (!pArg) {
+        return this[0].value;
+      }
+      //매개변수 타입이 string 일때, 전체 쓰기
+      if (typeof pArg == "string") {
+        for (let i = 0; i < this.length; i++) {
+          this[i].value = pArg;
+        }
+        return this; //메소드 체이닝!
+      }
+      //매개변수 타입이 function일때 곧 callback일때, 부분 조작
+      if (typeof pArg == "function") {
+        for (let i = 0; i < this.length; i++) {
+          this[i].value = pArg.call(this[i], i, this[i].value);
+        }
+        return this;
+      }
+    };
+
+    const test = $(".merong"); //이제 new 없이 부를 수 있어서 왠지 편한 느낌!
+    //console.log("체킁: ", test);
+    //alert($(".merong").html());
+    //$(".merong").html("<h1>만만세</h1>");
+
+    /*     $(".merong").html(function (idx, oldHTML) {
+      console.log(this);
+      //   alert("확인" + idx + " " + oldHTML);
+      //   if (oldHTML == "지원") return `<h1>${oldHTML}</h1>`;
+      return oldHTML; //자기 값 그대로 다시 쓰기!
+    }); */
+    //주의 실제 jQuery는  id 1개만 가져옴
+    // alert($("#same").val()); //읽기
+    //$("#same").val("통째로 가져오기"); //전체쓰기
+    //jQuery를 이해하고 사용하는 것 처럼 보일려면 꼭 반복 사용되는 건 변수로 받아서 사용!
+
+    $("#same").val(function (idx, value) {
+      if (idx % 2 == 0) {
+        return `안녕 ${value}`;
+      }
+      return value;
+    });
+  </script>
+</body>

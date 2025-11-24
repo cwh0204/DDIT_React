@@ -73,3 +73,18 @@ sort 메소드 완성
                                                 사용자를 속일 수도 있음!
                                                 의도적으로 사용하면 서버와의 통신 횟수를 줄여서
                                                 서버 부하를 많이 줄일 수도 있음..사용하기 나름
+
+localStorage => string밖에 저장이 안되서 JSON.strgitf <=> JSON.parcse
+                Cookie 대용으로 많이 사용(용량도 더 크고 사용도 더 쉬움)
+
+게시판 진행, queryString name=value&naem=value
+            request.getParameter, request.getParameterValue
+            write.html (체크로직은 많이 안해도 됨? 알아는 둬야 함! 회사가면 정말 많이하니까
+            상업적인 건 -> 돈 받고 하는건 아주 꼼꼼 해야하니까)
+
+localStorage를 이용해서 CRUD 게시판 작성
+                        @post @Get @put @Delete => B/E 맵핑 => Restful(가장 유행하는 방식)
+
+localStorage를 이용한 게시판은 실제 게시판으로 동작하려면 B/E 단에 저장공간을 만들어서
+동기화 하지 않으면 안됨 현 상태는 일기장 / 메모장 / todolist등으로 서버에 부하를 주지 않은
+프로그램으로 사용가능 (PWA Progressive Web Application 방식)
