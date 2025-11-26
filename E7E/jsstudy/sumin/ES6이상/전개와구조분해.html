@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  // 전개 연산자...와 구조 분해는 프론트 프레임워크에서는 필수!!
+  // 눈이 따라 갈수 있게 연습 ...그래야 손이 따라감
+  function rcK(props) {
+    //pObj = { name: "지원", age: 27 }
+    const { name, age } = props; //구조 분해!
+    alert("이름은 " + name);
+    alert("나이는 " + age);
+  }
+
+  rcK({ name: "지원", age: 27 });
+
+  //함수의 매개변수 자리에 ...을 쓸 땐 나머지 연산자라고 부름
+  //필수 항목과 나머지(옵션) 항목
+  function CK(name, age, ...params) {
+    console.log(params[0]);
+  }
+  //   CK("종창", 20, "대전", "아주못함", 2);
+  const testArr = ["수민", "지원", "형수", "승희", "상철"];
+  //
+  //const aaa = [...testArr, "종창"]; // 전개 연산자를 쓰면 ; 객체 복사가 됨! (기억), [] => new Array();
+  //const bbb = testArr;
+  //alert(aaa); // true or false
+  // ["수민", "지원", "형수", "승희", "상철"]
+  //   const aaa = testArr; // 이건 참조
+  //   aaa[0] = "메롱";
+  //   console.log("체크 : ", testArr);
+
+  const testObj = {
+    name: "현규",
+    age: 20,
+  };
+  const hgInfo = { ...testObj, alias: "메롱", name: "원효" };
+
+  const { alias, age, name: hgName } = hgInfo;
+  const { name } = testObj;
+
+  //   console.log("체크 : ", hgInfo);
+  const [, , sh, jj] = testArr;
+  console.log(sh, jj);
+  //구조 분해는 = (이퀄) 양쪽이 항상 같은 데이터 타입이어야 한다
+
+  //   const { alias, age } = hgInfo;
+  //   console.log("체크", alias, age);
+</script>

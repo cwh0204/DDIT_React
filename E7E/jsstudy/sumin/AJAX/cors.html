@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<!-- <button onclick="fCors()">체크</button> -->
+<div id="disp"></div>
+<script>
+  const disp = document.querySelector("#disp");
+  // ajax의 마지막은 cors (Cross Origin Resource Share) 제약 사항!
+  function fCors() {
+    const xhr = new XMLHttpRequest();
+    //브라우저에서 요청하면 주면서 , ajax로 요청하면 위반이라 함
+    xhr.open("get", "https://randombig.cat/roar.json", true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log(xhr.responseText); // 서버에서 가져온 결과를 변수에 담아서 사용
+        // 곧 뿌리기 전에 얼마든지 조작이 가능! 그래서 제약사항이 필요!
+        disp.innerHTML = xhr.responseText;
+      }
+    };
+    xhr.send();
+  }
+  fCors();
+</script>

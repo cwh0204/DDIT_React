@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <meta charset="UTF-8" />
 <body>
-  <div class="merong">수민</div>
-  <div class="merong" id="jiwon">지원</div>
-  <div class="merong">형수</div>
-  <div class="merong">승희</div>
+  <div class="merong" style="color: blue; background-color: yellow">수민</div>
+  <div class="merong" id="jiwon" style="color: yellow; background-color: blue">
+    지원
+  </div>
+  <div class="merong" style="color: greenyellow; background-color: maroon">
+    형수
+  </div>
+  <div class="merong" style="color: gold; background-color: green">승희</div>
   <!-- 원래 id는 한 문서 안에서 같은 값을 주지 말라는 권고 사항이 있는데 요즘은 필요에 의해서 무시하고 사용하기도 함! -->
   <input type="text" class="text" id="same" value="현식" /><br />
   <input type="text" class="text" id="same" value="상철" /><br />
@@ -96,6 +100,44 @@
       //   if (oldHTML == "지원") return `<h1>${oldHTML}</h1>`;
       return oldHTML; //자기 값 그대로 다시 쓰기!
     }); */
+
+    // 위 html => innerHTML, val => value 속성만 특정해서 다루는 메소드
+    // style 전체 속성을 다루는 메소드
+    $.fn.css = function (pArg1, pArg2) {
+      // 매개변수 값이 없을 때, 읽기 동작으로 하자
+      if (!pArg2) {
+        return this[0].style[pArg1];
+      }
+      //매개변수 타입이 string 일때, 전체 쓰기
+      if (typeof pArg2 == "string") {
+        for (let i = 0; i < this.length; i++) {
+          this[i].style[pArg1] = pArg2;
+        }
+        return this; //메소드 체이닝!
+      }
+      //매개변수 타입이 function일때 곧 callback일때, 부분 조작
+      if (typeof pArg2 == "function") {
+        for (let i = 0; i < this.length; i++) {
+          this[i].style[pArg1] = pArg2.call(this[i], i, this[i].style[pArg1]);
+        }
+        return this;
+      }
+    };
+
+    // 연습 안하면 안됨 동적 송성 할당 [] 배열식 접근법 / 연관배열 / 객체 조회
+
+    //개발자는 항상 디버깅으로 해결한다 눈에 너무 힘 많이주면 눈 금새 버림
+
+    console.log($(".merong").css("color")); // 읽기
+    // $(".merong").css("color", "gold"); // 전부 쓰기
+    // $(".merong").css("background-color", "black"); // 전부 쓰기
+    // $(".merong").css("font-size", "2em");
+
+    $(".merong").css("color", function (idx, val) {
+      if (val == "gold") return "pink";
+      return "red";
+    });
+
     //주의 실제 jQuery는  id 1개만 가져옴
     // alert($("#same").val()); //읽기
     //$("#same").val("통째로 가져오기"); //전체쓰기

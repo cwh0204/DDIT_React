@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<style>
+  .grand {
+    width: 200px;
+    height: 200px;
+    border: 3px solid green;
+  }
+  .mom {
+    width: 100px;
+    height: 100px;
+    border: 3px solid pink;
+  }
+  .me {
+    width: 50px;
+    height: 50px;
+    border: 3px solid yellow;
+  }
+</style>
+<body>
+  <div class="grand" onclick="fGrand()">
+    할머니
+    <div class="mom" onclick="fMom()">
+      엄마
+      <div class="me" onclick="fMe()">나</div>
+    </div>
+  </div>
+
+  <button onclick="handleClick()">누르쇼</button>
+  <button id="btn2">눌러</button>
+  <button id="btn3">누를까</button>
+  <script>
+    //이벤트 버블링!
+    function fGrand() {
+      alert("나 할머니!");
+    }
+    function fMom() {
+      // event.preventDefault();
+      event.stopPropagation();
+      alert("나 엄마!");
+    }
+    function fMe() {
+      event.stopPropagation(); //이벤트 전파 막기, 이 상태를 이벤트 캡처링이라 부름
+      alert("나!");
+    }
+
+    //이벤트 등록법 3가지, React에선 inline 이벤트 등록만 거의 사용함
+    function handleClick() {
+      alert("체크!");
+    }
+
+    // on이벤트명 = 헨들러 , 이건 많이 덮어써짐
+    const btn2 = document.querySelector("#btn2");
+    btn2.onclick = function () {
+      alert("체크2");
+    };
+    btn2.onclick = function () {
+      alert("체크3");
+    };
+    // addEventListener와 핸들러 콜백등록, 또 정의 하면 추가 등록됨!
+    // 나중에 생긴 걸로, 여러 사람이 작업할때 곧 규모가 커졌을 때
+    // 각자 자신의 코드를 추가할 수 있게 함!, 실제로는 위의 꺼랑 섞어서 많이 씀
+    const btn3 = document.querySelector("#btn3");
+    btn3.addEventListener("click", function () {
+      alert("체크3");
+    });
+    btn3.addEventListener("click", function () {
+      alert("원효대사는 절로 가라");
+    });
+  </script>
+</body>

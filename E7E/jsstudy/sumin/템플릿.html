@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8" />
+<style>
+  .fam {
+    border: 3px groove gold;
+    padding: 3px;
+  }
+</style>
+<body>
+  <!-- 너무 문자열 더하기만 많이 사용되는 경향이 있음 -->
+  <h1>템플릿 패턴을 잘 사용하면 훨씬 더 멋있어 보임</h1>
+  <h1>알려주면 써야 하는데 실제 보기가 참 어려움!</h1>
+  <button onclick="addFam()">가족 추가</button>
+  <div id="famTemp" class="fam" style="display: none">
+    관계 <input type="text" id="frel" value="" /><br />
+    이름 <input type="text" id="fname" value="" /><br />
+    나이 <input type="text" id="fage" value="" /><br />
+    <button onclick="remNa(this)">X</button>
+  </div>
+  <div id="disp"></div>
+  <button onclick="makeJSON()">전송</button>
+  <script>
+    const famTemp = document.querySelector("#famTemp");
+    const disp = document.querySelector("#disp");
+
+    function addFam() {
+      const famClone = famTemp.cloneNode(true); // 매개변수가 없으면 앝은 복사(별로 쓸모가 없음)
+      famClone.style.display = "block";
+      disp.appendChild(famClone);
+    }
+
+    function remNa(pBtn) {
+      // alert(pBtn.parentElement);
+      // pBtn.parentElement.style.display = "none";
+      // console.log(pBtn.closest("div"));
+      pBtn.closest("div").remove();
+    }
+
+    function makeJSON() {
+      const temps = Array.from(document.querySelectorAll("#disp > #famTemp"));
+      console.log("체크", temps);
+      // ajax로 보낸다고 가정하면 JSON 형태, 여기선 배열 형태
+      const fams = [];
+      temps.forEach((temp) => {
+        const fam = {
+          frel: temp.querySelector("#frel").value,
+          fname: temp.querySelector("#fname").value,
+          fage: temp.querySelector("#fage").value,
+        };
+        fams.push(fam);
+      });
+      console.log(fams);
+    }
+  </script>
+</body>

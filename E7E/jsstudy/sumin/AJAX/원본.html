@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<body>
+  <button onclick="fAjax()">누르숑</button>
+  <div id="disp" style="border: 2px solid black; min-height: 100px"></div>
+</body>
+<script>
+  const disp = document.querySelector("#disp");
+
+  function fAjax() {
+    $.ajax({
+      method: "get",
+      url: "data.html",
+      async: true,
+      dataType: "json", //1이걸 설명하는데 server라는 말이 들어가면 안됨 서버가 아닌 스크립트에서 판단해서 처리한다
+      success: function (rslt) {
+        console.log("느끼미 오나용?", rslt);
+        disp.innerHTML += rslt;
+      },
+    });
+    /*
+    fCommonAjax("get", "./data.csv", function (rslt) {
+      console.log("받아온 결과는", rslt);
+    });
+    */
+  }
+
+  // 매개변수 처리를 덩어리 1개로 처리 {}
+  const $ = {}; // 네임스페이스용
+  $.ajax = function (pSet) {
+    // jQuery Ajax의 탄생!
+    const xhr = new XMLHttpRequest(); // 함수 안에서 사용, 전역으로 쓰지 않음
+    xhr.open(pSet.method, pSet.url, pSet.async);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        // 결과에 따른 처리 방식이 당연히 다른 경우가 많을 것임
+        if (pSet.dataType == "json") {
+          pSet.success(JSON.parse(xhr.responseText));
+        } else {
+          pSet.success(xhr.responseText);
+        }
+
+        pSet.success(xhr.responseText);
+      }
+    };
+    xhr.send();
+  };
+
+  // 개발자라면 DRY 원칙이 머리에 떠오르고, 반복되는 코드를 심플하게 함
+  // ajax에 공용으로 쓸 함수, 일단 매개변수 이용
+  /*
+  function fCommonAjax(pMethod, pUrl, pCb) {
+    const xhr = new XMLHttpRequest(); // 함수 안에서 사용, 전역으로 쓰지 않음
+    xhr.open(pMethod, pUrl, true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        // 결과에 따른 처리 방식이 당연히 다른 경우가 많을 것임
+        pCb(xhr.responseText);
+      }
+    };
+    xhr.send();
+  }
+  */
+  /*
+  function fAjax() {
+    const xhr = new XMLHttpRequest(); // 함수 안에서 사용, 전역으로 쓰지 않음
+    xhr.open("get", "./data.json", true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log(JSON.parse(xhr.responseText));
+        disp.innerHTML += xhr.responseText;
+      }
+    };
+    xhr.send();
+  }
+  */
+
+  // 아작스 원본! => 이걸 머리에 담아두면 아주 좋음!
+  // 비동기? cpu 갯소가 많아짐, 동시에 일이 진행 될 수가 있음!
+  // 비동기를 개발자들이 믿지 않고(내면은 나도 모름), 적용을 하지 않음
+  // 2004년경 구글이 gmap, gmail등에 비동기를 적용, 완전히 성공한 모습을 보여줌
+  // 이때 부터 ajax는 활기를 띠게...  대충 내막은 이러함
+
+  // 한번만 쓸게 아니라면 퀵서비스 아저씨를 공유해서 쓰는 건(전역변수) 무리!
+
+  //alert("저 지원이예요 지원해드릴까용?"); // 이게 먼저 뜨면 비동기, 안 기다림
+</script>

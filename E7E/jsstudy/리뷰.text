@@ -88,3 +88,29 @@ localStorage를 이용해서 CRUD 게시판 작성
 localStorage를 이용한 게시판은 실제 게시판으로 동작하려면 B/E 단에 저장공간을 만들어서
 동기화 하지 않으면 안됨 현 상태는 일기장 / 메모장 / todolist등으로 서버에 부하를 주지 않은
 프로그램으로 사용가능 (PWA Progressive Web Application 방식)
+
+JQuery 매개변수 없으면 읽기( 첫번째 요소)
+       매개변수가 문자열이면 전체쓰기()
+       부분조작 콜백함수 => (인덱스,해당 element의 값)
+
+사용시 주의 사항 => $("aaa").html(), $("aaa").val() => 메소드 체이닝이나 변수(권장)로 받아서 쓴다
+
+ES6 이상, 새로운 기능이 많이 들어갔고, 이것들이 프론트 프레임워크에 아주 많이 사용됨
+        template String => `` 최대 장점은 멀티라인!
+                           java/Spring jsp에 사용시 문제 1개
+오직 jsp에서만 const myName = `\${name}` // EL과 template String 문법이 완벽하게 일치함
+        자바스크립트 변수라면 앞에 Escape Squence \ 역슬러쉬 처리를 해줘야 함!
+        tagged Template => 요건 라이브러리 만드는 경우외에는 거의 안씀! (template)
+        일단 존재만 styled-components란 라이브러리가 이걸 이용해서 만들어졌음
+Arrow function (화살표 함수) => 이건 넘어가고
+전개 연산자 (Spread Operator ...)와 객체 구조 분해 (Object Destruction)은
+프론트 프레임워크에서 미친듯이 사용되므로 절대적으로 알아야 함!
+
+템플릿 패턴 => 너무 문자열 더하기만 많이 하지말고, 화면 안에 양식을 숨겨놓고 clonNode(true) => 깊은 복사 => display 보이고 / 안보이고랑 같이 연동하면 Good
+
+전개 연산자     ...(객체 복사 , {} , []) , 구조 분해 => React에서 상습적으로 쓰기 때문에 꼭 눈에 익혀야함
+                시간 투자만 조금 하면, 금방 손에 붙음... 예습 / 복습  2중 하나는 항상
+
+fetch => ajax 편하게 쓰는 api
+         ajax 모르면 프론트 프레임워크 할 수가 없음(왜? SPA 방식이라서)
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <script>
+      //tagged template
+      const styled = {}; //네임스페이스용 빈 객체
+      styled.button = function (string, value) {
+        console.log("체크", string, value);
+        return string;
+      };
+      //호출 형태가 재밌음
+      const btnName = "원효"; // 요런 변수가 들어가면 자동으로 기준점이 되어 string이 split됨
+      styled.button`<button style="font-size:2em">${btnName}</button>`;
+    </script>
+  </body>
+</html>
