@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  //비동기가 유행하면서 콜백지옥(hell of callback) 용어 탄생 대부분 node에서 이야기)
+  //비동기 결과 처리를 콜백으로 하는데, 그안에 또 비동기가 필요한 식으로....
+  //코드가 복잡해지면서, 개발자들의 불만이 높아짐
+  //bluebird란 회사가 promise란걸 만들어서 제공하고 있었는데, 괜찮다는 평가가 있었음
+  //Promise 자체를 그대로 script 언어 안에 받아들임
+  //요게 초보자들에게 시작이 엄청 낮설다 => 하지만 괜찮다 => 왜냐면 직접
+  // promise를 사용할 일은 거의 없음(라이브러리 만드는 회사에 근무한다면 직접 사용 필요)
+  // promise는 그냥 껍데기, 문법적으로 예쁘게 보이도록!
+
+  // 요 자체를 잘 쓰면 ajax fake 코드를 만들어서 쓸 수 있게 되고
+  // 사용에 깊이가 더 깊어짐
+  function CK() {
+    return new Promise((res, rej) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("get", "data.json", true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          // axios 의 자동 JSON.parse 처리, 아주 간단한 처리!(이것도 Good idea)
+          let merong;
+          try {
+            merong = JSON.parse(xhr.responseText);
+          } catch (error) {
+            merong = xhr.responseText;
+          }
+          res(JSON.parse(xhr.responseText));
+        }
+      };
+
+      xhr.send();
+      /*
+            비동기 코드 ajax 아니면, setTimeout
+        */
+      //   res("성공");
+      //   rej("실패");
+    });
+  }
+
+  // 실제 개발자는 return 타입이 Promise일때 사용법만 잘 알면 큰 문제 없음
+
+  CK()
+    .then((rslt) => {
+      console.log("체크", rslt);
+    })
+    .catch((err) => {
+      console.log("체크", err);
+    })
+    .finally(() => {
+      //client (브라우쟈) 단에서 사용되는 js에는 잘 사용 안됨(왜? 대응 자체가 어려움)
+      console.log("끝!");
+    });
+</script>

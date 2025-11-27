@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<!--AXIOS 설치
+    개발자들의 ajax 사용 패턴을 분석하여, 반복되는 부분을 거의 대부분 자동처리!
+    B / E 단을 NODE로 쓰는 경우 서버 <-> 서버 요청에서도 사용할 수 있음 => 아주 훌륭!
+-->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<body>
+</body>
+<script>
+    //fetch API (최대 장점은 built-in), 단점은 두번 then해야 결과를 가져올 수 있음
+    // retunr 타입이 Promise임, fetch / axios
+    /*
+    fetch("data.html").then((res) => { //바로 결과를 뽑을 수 없음 첫번째 Response 객체
+        res.text().then((rslt) => {
+            console.log("결과는 ", rslt);
+        });
+    });
+    */
+   fetch("data.json").then((res) => res.json()) //json() 은 JSON.parse를 해준다는 의미
+        .then((res) => { console.log("체크", res);});
+    
+    // 결과 가져오는데, then을 한번만 쓰면 되고, 문법도 훨씬 깔끔하고, 직관적
+    // 최대 단점은 외부 라이브러리란 점
+    axios.get("data.json").then((resp) => {
+        console.log("결과", resp.data);
+    });
+</script>
+</html>

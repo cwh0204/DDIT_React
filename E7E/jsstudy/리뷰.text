@@ -114,3 +114,15 @@ Arrow function (화살표 함수) => 이건 넘어가고
 fetch => ajax 편하게 쓰는 api
          ajax 모르면 프론트 프레임워크 할 수가 없음(왜? SPA 방식이라서)
 
+event => 등록법 3개 lnline 등록 => on 이벤트명 = 헨들러 => addEventListener(이벤트명, 콜백)
+      => 이벤트 버블링 => 자식에게 발생된 이벤트가 부모에도 똑같이 전달됨 => event.stopPropagation
+      => 이벤트 캡쳐링 (특히 느낌이 싸 할때)
+
+ajax = > 비동기(일꾼이 최소 2명이어야 가능 하다) => 동시에 일이 진행됨 => 현실은 대부분 비동기
+         현실에서 계획을 기반으로 순서를 정한거
+         new XMLHttpRequest(); // 퀵 서비스 아저씨, 프로그램 세게에선 필요할 때 마다 부를 수 있음
+         // 모든 ajax 라이브러리 핵심은 이거 하나! , 포장만 다름
+
+JSONP => JSON PADDING => CORS 제약사항 없이 사용 가능 => 좋은 기술
+원본 ajax => JQuery Ajax => Promise
+

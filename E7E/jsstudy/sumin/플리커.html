@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>형수님 플리커</title>
+    <script>
+      function jsonFlickrFeed(whData) {
+        console.log("체크", whData.items[1].link);
+        const items = whData.items;
+        disp.innerHTML = ""; // 기존 가진거 전부 지우기
+        items.forEach((element) => {
+          console.log(element.media.m);
+          const imgTag = document.createElement("img"); //메모리에 img 태그 생성
+          imgTag.src = element.media.m; //이미지 url 지정
+          disp.appendChild(imgTag); //화면에 추가 => 보이기
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <input type="text" name="" id="schWord" value="" onkeydown="dounScr()" />
+    <button onclick="imgScr()">검색</button>
+
+    <div id="disp"></div>
+    <!--CORS 제약 사항 same-orign / cross-origin 정책 영향을 받지 않음-->
+    <script src="https://www.flickr.com/services/feeds/photos_public.gne?tags=cat&format=json"></script>
+    <script>
+      const preIRL =
+        "https://www.flickr.com/services/feeds/photos_public.gne?tags=";
+      const postURL = "&format=json";
+      const disp = document.querySelector("#disp");
+      const schWord = document.querySelector("#schWord");
+      function imgScr() {
+        const schURL = `${preIRL}${schWord.value}${postURL}`;
+        const scriptTag = document.createElement("script"); //script 태그 생성 메모리에
+        scriptTag.src = schURL;
+        document.head.appendChild(scriptTag); // head와 body는 약속이 한번만 들어가야 하므로 id등이 필요없음
+      }
+
+      function dounScr() {
+        if (event.keyCode == 13) {
+          imgScr();
+        }
+      }
+    </script>
+  </body>
+</html>

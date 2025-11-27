@@ -29,7 +29,28 @@
   <button onclick="handleClick()">누르쇼</button>
   <button id="btn2">눌러</button>
   <button id="btn3">누를까</button>
+  <div
+    style="border: 5px groove gold"
+    contenteditable=""
+    tabindex="0"
+    onkeydown="jongchang()"
+  >
+    수민 만 만세
+  </div>
+  <div onclick="fcheck(this)"><span>수민 만세</span></div>
   <script>
+    function jongchang() {
+      if (event.keyCode == 13) {
+        console.log("엔터를 누르세요");
+        event.target.innerHTML = "<h1>수민 만세 만세</h1>";
+      }
+    }
+
+    function fcheck() {
+      console.log(event.target); // 아주 자주 사용함; , 주의 태그 모달에 따라 바뀔 수 있음
+      console.log(event.currentTarget); // 얘는 안 바뀜!
+    }
+
     //이벤트 버블링!
     function fGrand() {
       alert("나 할머니!");
