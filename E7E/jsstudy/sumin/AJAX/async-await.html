@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  //비동기 표현의 마지막 async/await 칭찬을 많이 받음
+  //물론 단점도 있음
+  //   fatch("data.json")
+  //     .then((resp) => resp.json())
+  //     .then((resp) => {
+  //       console.log("결과는", resp);
+  //     });
+  // async / await를 이용해서 바꾸면, 최대 단점은 function을 만들어야 한다는 거
+  // 장점은 흐름이 눈에 쏙쏙 들어옴!
+
+  //혹 시간이 된다면 fetch를 axios로 한번 바꿔봐
+  //배열(map/fillter/sort), 전개연산자/구조분해, ajax(fetch나 axios 무조건 둘중 하나는 잘 써야함)
+
+  async function hung() {
+    alert("그럼 전 언제 뜰까요?");
+    const resp = await fetch("data.json");
+    const relt = await resp.json();
+    console.log(relt);
+    alert("제가 먼저 아닐까요?");
+  }
+  hung();
+  alert("누가 먼저?"); // 얘가 먼저 떠 그래서 비동기!!
+
+  /*
+    권장
+  */
+</script>

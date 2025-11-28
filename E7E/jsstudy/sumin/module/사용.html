@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  // Node에서 사용되던 모듈의 편리함을 인정해서 부라우져에서도 사용할 수 있도록
+  // 표준으로 정의 됨,
+  // Node에서 사용되는 모듈 방식 commonjs 모듈이라 부름 ( require / export )
+  // ESM (EcmaScript Module) 표준 정의 (import / export)
+  // module은 서로 독립적 영역
+</script>
+<script>
+  //여긴 type=module이라 쓰지 않았기 때문에 전역!
+  const myName = "형수님"; //vscode가 아직 바보라서 이걸 알아차리지 못하고 있음
+</script>
+<script type="module">
+  const myName2 = "미운 종창";
+</script>
+<script type="module">
+  import { sumin, jiwon, sh } from "./merong.js";
+  import momdaro from "./merong.js";
+
+  console.log(myName);
+
+  console.log(momdaro.sumin("굿모닝"));
+  console.log(jiwon("굿모닝"));
+  console.log(sh("굿모닝"));
+</script>

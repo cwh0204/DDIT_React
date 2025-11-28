@@ -126,3 +126,12 @@ ajax = > 비동기(일꾼이 최소 2명이어야 가능 하다) => 동시에 �
 JSONP => JSON PADDING => CORS 제약사항 없이 사용 가능 => 좋은 기술
 원본 ajax => JQuery Ajax => Promise
 
+fetch => 장단점 => built.in => then 두번 써야 결과 가져온다, text(), json()
+axios => 위의 모든 단점을 해결해 주었지만 => 외부 라이브러리란게 최대 단점
+
+json-server => 핵심은 간단한 restful server를 제공해 준다.
+                restful? get => 읽기, post => 쓰기, put => 수정, delete => 삭제
+                boomerang => rest client 프로그램  (주로 B/E 개발자가 많이 쓰게 됨!)
+                             postman(제일 유명한 프로그램 => 무료회원가입!)
+                
+

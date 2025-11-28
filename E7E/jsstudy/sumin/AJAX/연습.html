@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>Restful 서버 + 클라이언트 fetch</h1>
+    <form onsubmit="memReg()">
+      ID <input type="text" name="id" value="" required /><br />
+      NAME <input type="text" name="name" value="수민" required /><br />
+      AGE <input type="text" name="age" value="24" required /><br />
+      <button>새 등록</button>
+      <button type="button" onclick="getMember()">조회</button>
+      <button type="button" onclick="updMember()">수정</button>
+      <button type="button" onclick="delMember()">삭제</button>
+    </form>
+    <div id="disp"></div>
+    <script>
+      const restServer = "http://localhost:9999";
+      const disp = document.querySelector("#disp");
+      const jwForm = document.forms[0];
+
+      // 지우기
+      async function delMember() {
+        const memId = jwForm.id.value;
+        const resp = await axios.delete(`${restServer}/members/${memId}`);
+        console.log("체킁:", resp);
+        if (resp.statusText == "OK") {
+          alert("잘 지워졌다네용");
+          getList();
+        }
+      }
+
+      /* 지우기
+      async function delMember() {
+        const memId = jwForm.id.value;
+        const resp = await fetch(`${restServer}/members/${memId}`, {
+          method: "delete",
+        });
+        if (resp.ok) {
+          alert("잘 지워졌다네용");
+          getList();
+        }
+      }
+      */
+
+      // 수정
+      async function updMember() {
+        const memId = jwForm.id.value;
+        const mMember = {
+          name: jwForm.name.value,
+          age: jwForm.age.value,
+        };
+        const resp = await fetch(`${restServer}/members/${memId}`, {
+          method: "put",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(mMember),
+        });
+        if (resp.ok) {
+          alert("잘 수정 되었다네용");
+          getList(); // 리스트 다시 뿌리깅
+        }
+      }
+
+      // member 1명 조회
+      async function getMember() {
+        const memId = jwForm.id.value;
+        const resp = await fetch(`${restServer}/members/${memId}`);
+        const member = await resp.json();
+        console.log("체킁킁:", member);
+        jwForm.name.value = member.name;
+        jwForm.age.value = member.age;
+      }
+
+      // member 등록
+      async function memReg() {
+        // SPA 이기 때문에
+        event.preventDefault(); // form 전송 막기
+        const newMember = {
+          id: jwForm.id.value,
+          name: jwForm.name.value,
+          age: jwForm.age.value,
+        };
+
+        const resp = await axios.post(`${restServer}/members`, newMember);
+        console.log("체로롱", resp);
+        if (resp.statusText == "Created") {
+          alert("잘 등록되었어용");
+          getList(); // disp 내용 다시 뿌리깅
+        }
+      }
+
+      // 전체 리스트
+      async function getList() {
+        // fetch 연습
+        const resp = await fetch(`${restServer}/members`);
+        const members = await resp.json();
+        console.log("결과:", members);
+        // rslt 결과를 재빨리 table형식으로 disp에 넣으시옹!
+        let tblStr = `
+             <table border=1 width=300>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>이름</th>
+                        <th>나이</th>
+                    </tr>
+                </thead>
+                <tbody>
+          `;
+        members.forEach((member) => {
+          // console.log("디버깅:", member);
+          tblStr += `
+                 <tr>
+                    <td>${member.id}</td>
+                    <td>${member.name}</td>
+                    <td>${member.age}</td>
+                 </tr>
+             `;
+        });
+        tblStr += `</tbody></table>`;
+        disp.innerHTML = tblStr;
+      }
+      getList();
+
+      /*  async / await 함수로 필요한 부분 모두 바꾸어 봅니당!
+      function delMember() {
+        const memId = jwForm.id.value;
+        fetch(`${restServer}/members/${memId}`, {
+          method: "delete",
+        }).then((resp) => {
+          if (resp.ok) {
+            alert("잘 지워졌다네용");
+            getList();
+          }
+        });
+      }
+
+      function updMember() {
+        const memId = jwForm.id.value;
+        const mMember = {
+          name: jwForm.name.value,
+          age: jwForm.age.value,
+        };
+        fetch(`${restServer}/members/${memId}`, {
+          method: "put",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(mMember),
+        }).then((resp) => {
+          if (resp.ok) {
+            alert("잘 수정 되었다네용");
+            getList(); // 리스트 다시 뿌리깅
+          }
+        });
+      }
+
+      function getMember() {
+        const memId = jwForm.id.value;
+        fetch(`${restServer}/members/${memId}`)
+          .then((resp) => resp.json())
+          .then((member) => {
+            console.log("체킁킁:", member);
+            jwForm.name.value = member.name;
+            jwForm.age.value = member.age;
+          });
+      }
+
+      const jwForm = document.forms[0];
+      function memReg() {
+        // SPA 이기 때문에
+        event.preventDefault(); // form 전송 막기
+        const newMember = {
+          id: jwForm.id.value,
+          name: jwForm.name.value,
+          age: jwForm.age.value,
+        };
+
+        fetch(`${restServer}/members`, {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newMember),
+        }).then((resp) => {
+          console.log("체킁:", resp);
+          if (resp.ok) {
+            alert("잘 등록되었어용");
+            getList(); // disp 내용 다시 뿌리깅
+          }
+        });
+      }
+
+      const restServer = "http://localhost:9999";
+      const disp = document.querySelector("#disp");
+      function getList() {
+        // fetch 연습
+        fetch(`${restServer}/members`)
+          .then((resp) => resp.json())
+          .then((members) => {
+            console.log("결과:", members);
+            // rslt 결과를 재빨리 table형식으로 disp에 넣으시옹!
+            let tblStr = `
+             <table border=1 width=300>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>이름</th>
+                        <th>나이</th>
+                    </tr>
+                </thead>
+                <tbody>
+          `;
+            members.forEach((member) => {
+              // console.log("디버깅:", member);
+              tblStr += `
+                 <tr>
+                    <td>${member.id}</td>
+                    <td>${member.name}</td>
+                    <td>${member.age}</td>
+                 </tr>
+             `;
+            });
+            tblStr += `</tbody></table>`;
+            disp.innerHTML = tblStr;
+          });
+      }
+      getList(); // 최초 리스트 뿌리기
+      */
+    </script>
+  </body>
+</html>
