@@ -1,11 +1,6 @@
-import React from 'react'
+import React from "react";
 
 function Sumin() {
-  return (
-    <div>
-        <h1>TGIF Thanks God It's Friday</h1>
-    </div>
-  )
+  return React.createElement("p", {}, "난 수민이라고 해");
 }
-
-export default Sumin
+export default Sumin;
