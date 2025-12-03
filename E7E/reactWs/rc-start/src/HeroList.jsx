@@ -52,20 +52,46 @@ function HeroList() {
     const modHero = () =>{
 
         //이걸 활용하면
-        const updHero = {
-            hid,
-            name,
-            power,
-            weapon
-        }
+        // const updHero = {
+        //     hid,
+        //     name,
+        //     power,
+        //     weapon
+        // }
 
         const newArr = heros.map((hero) => {
-            if(hero.hid == hid){
-                return updHero;
+            if(hero.hid === hid){
+                return {...hero,name,power,weapon}
+                // return updHero;
+
             }
             return hero; // 해당 안되는건 그냥 원래 값 그대로
         });
         setHeros(newArr);
+    }
+
+    const scrHero = () =>{
+        const newArr = heros.filter((hero)=>{
+            // if(hero.hid === hid)return true;
+            // return false;
+            if(hero.name === name)return true;
+            return false;
+        })
+
+        setHeros(newArr);
+    }
+
+    const sortHero = () => {
+        // sort는 새 배열을 return 하지 않음
+        const sortedGeros = [...heros];
+        sortedGeros.sort((a,b) => {
+            if(a.name > b.name) return 1;
+            else return -1;
+        });
+        setHeros(sortedGeros);
+    }
+    const delHero = (hid) => {
+        setHeros(heros.filter(hero => hero.hid !== hid)); // hid가 일치하지 않는 것만 담은 새배열
     }
   return (
     <div>
@@ -76,6 +102,9 @@ function HeroList() {
             무기 <input type="text" value={weapon} onChange={weaponChg}/><br/>
             <button onClick={addHero}>새 히어로 등록</button>
             <button onClick={modHero}>히어로 수정</button>
+            <button onClick={scrHero}>히어로 검색</button>
+            <button onClick={delHero}>히어로 삭제</button>
+            <button onClick={sortHero}>히어로 이름순 정렬</button>
         </div>
         <button onClick={handleOpen}>관리보드</button>
         <h3>나의 히어로스</h3>
@@ -84,6 +113,7 @@ function HeroList() {
                 return <Hero 
                     key={hero.hid}
                     {...hero}
+                    delHero = {delHero}
                 />
             })
         }
