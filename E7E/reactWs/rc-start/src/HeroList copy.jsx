@@ -9,11 +9,9 @@ const initHeros = [
 ]
 
 
-const initInputs = {name:"",power:"",weapon:"",hid:""}
-
 function HeroList() {
     const [open,setOpen] = useState(false);
-    const [inputs, setinput] = useState({name:"",power:"",weapon:"",hid:""});
+    const [name, setName] = useState("");
     const [power, setPower] = useState("");
     const [weapon, setWeapon] = useState("");
     const [hid, setHid] = useState("");
@@ -98,10 +96,10 @@ function HeroList() {
   return (
     <div>
         <div style={{display:open?"block" : "none", border:"2px solid blue" ,marginBottom:"10px"}}>
-            id <input type="text" value={input.hid} onChange={hidChg}/><br/>
-            이름 <input type="text" value={input.name} onChange={nameChg}/><br/>
-            파워 <input type="text" value={input.power} onChange={powerChg}/><br/>
-            무기 <input type="text" value={input.weapon} onChange={weaponChg}/><br/>
+            id <input type="text" value={hid} onChange={hidChg}/><br/>
+            이름 <input type="text" value={name} onChange={nameChg}/><br/>
+            파워 <input type="text" value={power} onChange={powerChg}/><br/>
+            무기 <input type="text" value={weapon} onChange={weaponChg}/><br/>
             <button onClick={addHero}>새 히어로 등록</button>
             <button onClick={modHero}>히어로 수정</button>
             <button onClick={scrHero}>히어로 검색</button>
