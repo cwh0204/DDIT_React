@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*border 사이즈를 포함하란 의미*/
+
+}
+
+.wrapper {
+    width: 70%;
+    border: 2px solid blue;
+}
+
+.header {
+    background-color: black;
+    color: orange;
+    border: 2px solid gold;
+}
+
+.side {
+    display: inline-block;
+    width: 30%;
+    border: 2px solid pink;
+    padding-left: 20px;
+}
+
+.side li:hover {
+    font-weight: bolder;
+    color: blueviolet;
+}
+
+.jiwon {
+    display: inline-block;
+    width: 70%;
+    border: 2px solid blueviolet;
+    height: 70vh;
+}
+
+.footer {
+    border: 2px solid skyblue;
+    background-color: blueviolet;
+    color: white;
+}
