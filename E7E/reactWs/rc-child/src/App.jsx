@@ -1,54 +1,56 @@
-import React, { useRef } from 'react'
-import Counter from './components/Counter';
-import ReducerTest from './components/ReducerTest';
-// useRef => 필수 Hook (보통 DOM 참조에 많이 사용됨)
-// state 변수를 value에 연결시키면 controlled 컴포넌트
-// 연결시키지 안으면 uncontrolled 컴포넌트라고 부름, 서로 장단점이 있음
-//useRef로 돌려받은 값은 객체로 오직 current 속성을 가진다.
+import React, { useEffect, useRef, useState } from 'react'
+
+/* 
+  비동기와 상태변수가 만나면, 추가동작이 발생 이걸 부작용(side Effect)이라 부름
+  가끔 설명의 기준이 달라서, 같은 내용인데 다른식으로 느껴지는 경우가 있으니 주의
+  Side Effect를 필요한 추가작업으로 해석하는 경우도 있음
+  Side Effect의 제어가 필요 => useEffect() 훅 등장!
+  이거슨 필수 Hook => React Query(지금은 Tanstack Query)란 걸 사용하면 거의 안쓸수도 있음
+ */
+
+const jsonMembers = "http://localhost:9999/members";
 function App() {
-  // const nameRef = useRef(null); // Re-Randering 과 관계없음, 그저 참조
-  // const ageRef = useRef(null);
-  // const aliasRef = useRef(null);
-  // const formRef = useRef(null);
+  const [shPosts, setShPosts] = useState([]);
+  const [myMembers, setmyMembers] = useState([]);
+  const [toggle, setToggle] = useState(true);
 
-  // const myInfo = useRef({ name: "원효", alias: "대사" }); // re-rendering 관계없음을 기억
+  const getPosts = async () => {
+    const response = await fetch(jsonMembers);
+    const posts = await response.json();
+    setmyMembers(posts);
+  }
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("date", nameRef.current.value);
-  //   console.log("date", ageRef.current.value);
-  //   console.log("date", aliasRef.current.value);
+  useEffect(() => {
+    console.log("실행");
+    getPosts();
+    // fetch("https://jsonplaceholder.typicode.com/posts").then((response) => response.json()).then(posts => {
+    //   // console.log("결과 체크", posts) //결과 체크
+    //   setShPosts(posts); // 상태변화
+    // });
+  }, [toggle])
 
-  // }
-  // const handleSubmit2 = (e) => {
-  //   e.preventDefault();
-  //   console.log("date2", formRef.current.name.value);
-  //   console.log("date2", formRef.current.age.value);
-  //   console.log("date2", formRef.current.alias.value);
+  //두번째 변수가 아예 없을 때 매번 실행됨 => 이건 쓸모가 없음
+  //두번째 변수가 [] 일때 , 딱 한번만 실행됨
+  //두번째 변수를 dependencies 라 부름
 
-  //   myInfo.current.alias = "흠치";
-  //   console.log(myInfo.current);
+  // fetch("https://jsonplaceholder.typicode.com/posts").then((response) => response.json()).then(posts => {
+  //   // console.log("결과 체크", posts) //결과 체크
+  //   setShPosts(posts); // 상태변화
+  // });
 
-  // }
+  const handleBtn = () => {
+    setToggle(!toggle);
+  }
+
   return (
     <>
-      <h1>상태관리 useReducer</h1>
-      <ReducerTest />
-      <Counter />
+      <h1>useEffect Hook</h1>
+      <button onClick={handleBtn}>useEffect 체크</button>
       {
-        /* <form>
-          이름 <input type="text" ref={nameRef} defaultValue={""} /> <br />
-          나이 <input type="text" ref={ageRef} defaultValue={""} /> <br />
-          별명 <input type="text" ref={aliasRef} defaultValue={""} /> <br />
-          <button onClick={handleSubmit}>전송</button>
-        </form>
-        <hr />
-        <form ref={formRef}>
-          이름 <input type="text" name='name' ref={nameRef} defaultValue={""} /> <br />
-          나이 <input type="text" name='age' ref={ageRef} defaultValue={""} /> <br />
-          별명 <input type="text" name='alias' ref={aliasRef} defaultValue={""} /> <br />
-          <button onClick={handleSubmit2}>전송</button>
-        </form> */
+        myMembers.length == 0 ? <h1>로딩중</h1> :
+          myMembers.map(post => {
+            return <h5 key={post.id}>{post.id}{post.name}</h5>
+          })
       }
     </>
   )

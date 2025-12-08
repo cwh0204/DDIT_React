@@ -1,29 +1,44 @@
-import React,{useRef,useEffect,useState} from "react";
-import IdolList from "./IdolList";
-import HeroList from "./HeroList";
+import React, { useEffect, useRef } from "react";
+import { useLocation } from 'react-router-dom';
 
 function App() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
 
-  const initVal = {name:"", age:"",alias:""}
-  const[inputs, setInputs] = useState(initVal);
+  const start = useRef(params.get('start') == "" || params.get('start') == null ? "2" : params.get('start'));
+  const end = useRef(params.get('end') == "" || params.get('start') == null ? "9" : params.get('end'));
 
-  const handeChg = (e) => {
-    console.log("체크",e.target);
-    setInputs({...inputs,[e.target.id]:e.target.value});
-  }
+  console.log(start.current);
+  console.log(end.current);
 
-  const hendleSubmit = (e) => {
-    e.preventDefault();
-    console.log("데이터",inputs);
-  }
+  const dans = Array.from({ length: end.current - start.current + 1 }, (_, i) => {
+    const numericStart = Number(start.current);
+    return numericStart + i;
+  });
+  console.log(dans);
+  const numbers = Array.from({ length: 9 }, (_, i) => i + 1);
+
   return (
-    <> 
+    <>
       <form>
-        이름 <input type="text" value={inputs.name} id="name" onChange={handeChg}/><br/>
-        나이 <input type="text" value={inputs.age} id="age" onChange={handeChg}/><br/>
-        별명 <input type="text" value={inputs.alias} id="alias" onChange={handeChg}/><br/>
-        <button>전송</button>
-      </form>
+        <input type="number" name="start" min={1} max={9}></input>
+        <input type="number" name="end" min={1} max={9}></input>
+        <button>=</button> <br />
+        <table className="gugudan-table">
+          <tbody>
+            {dans.map(dan => (
+              <tr key={dan}>
+                <th>{dan}단</th>
+                {numbers.map(num => (
+                  <td key={`${dan}-${num}`}>
+                    {dan}*{num}={dan * num}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </form >
     </>
   );
 }
