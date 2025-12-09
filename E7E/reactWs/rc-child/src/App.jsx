@@ -25,7 +25,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log("실행");
     getPosts();
     // fetch("https://jsonplaceholder.typicode.com/posts").then((response) => response.json()).then(posts => {
     //   // console.log("결과 체크", posts) //결과 체크
@@ -62,9 +61,6 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("name", formRef.current.name.value);
-    console.log("age", formRef.current.age.value);
-    console.log("id", formRef.current.id.value);
 
     const newMembers = JSON.stringify({
       name: formRef.current.name.value,
@@ -99,7 +95,7 @@ function App() {
       {
         myMembers.length == 0 ? <h1>로딩중</h1> :
           myMembers.map(post => {
-            return <Member key={post.id} {...post} />
+            return <Member key={post.id} {...post} setAgain={setAgain} again={again} />
           })
       }
     </>

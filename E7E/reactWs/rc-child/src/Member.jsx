@@ -1,15 +1,15 @@
 import { Drill, HardHat, UserRoundX } from 'lucide-react'
 import React, { useState } from 'react'
 
-function Member({ id, name, age }) {
+function Member({ id, name, age, setAgain, again }) {
     const jsonMembers = "http://localhost:9999/members";
-    const [again, setAgain] = useState(true);
+    /*     const [delState, setDelState] = useState(false); */
     const handleX = () => {
         fetch(jsonMembers + `/${id}`, {
             method: "DELETE"
-        }).then((data) => {
-            setAgain(!again);
         })
+        /*         setDelState(!delState); */
+        setAgain(!again);
     }
 
     return (
