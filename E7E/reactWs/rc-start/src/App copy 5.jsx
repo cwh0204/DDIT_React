@@ -1,33 +1,35 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from 'react-router-dom';
-import Dan from "./Dan";
 
 function App() {
 
-  const [dans, setDans] = useState([2, 9]);
+  const [dan, setDan] = useState(2);
+
+  const handleDan = (e) => {
+    setDan(e.target.value);
+  }
 
   const onToNine = Array.from({ length: 9 }, (_, i) => i + 1);
 
-  const handleDan = (e) => {
-    const selValues = [...e.target.selectedOptions].map(option => option.value)
+  const selDan = onToNine.map((num) => {
+    return <div key={dan * num}> {dan} * {num} = {dan * num}</div>
+  })
 
-    setDans(selValues);
-  }
   return (
     <>
-      <select style={{ height: 100 }} value={dans} multiple onChange={handleDan}>
+      <select value={dan} multiple={true} onChange={handleDan}>
         {
           onToNine.map((num) => {
             return <option key={num} value={num}>{num}</option>; // key와 내용을 추가
           })
         }
       </select>
-      <div>
-        {
-          dans.map(dan => (<Dan key={dan} sdan={dan} />))
-        }
-      </div>
+      <h1>{dan}단 출력 </h1>
+      {
+        selDan
+      }
     </>
   );
 }
+
 export default App;
