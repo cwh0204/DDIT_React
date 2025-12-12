@@ -11,7 +11,10 @@ function App() {
 
   return (
     <>
-
+      <h1>Context API 사용</h1>
+      <MemContextProvider>
+        <Parent />
+      </MemContextProvider>
     </>
   )
 }
